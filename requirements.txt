@@ -1,0 +1,11 @@
+fastapi
+megaparse
+nltk
+openpyxl
+pandas
+py-zerox
+surya-ocr
+unstructured
+uvicorn
+wisup_e2m
+xlrd
