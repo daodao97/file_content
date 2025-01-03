@@ -7,7 +7,8 @@ from fastapi import FastAPI, File, UploadFile, HTTPException, Request
 from fastapi.responses import PlainTextResponse
 
 from markitdown import MarkItDown
-
+import pymupdf4llm
+import pandas
 app = FastAPI()
 
 
@@ -30,8 +31,16 @@ async def upload_file(file: UploadFile = File(...)):
 
         # router
         md = MarkItDown()
-        if file_ext in ['.doc', '.docx', '.ppt', '.pptx', ".xls", ".xlsx", ".csv", ".pdf"]:
-            result["extracted_content"] = md.convert(file_path).text_content
+        if file_ext in ['.doc', '.docx', '.ppt', '.pptx', ".csv", ".pdf"]:
+            content = md.convert(file_path).text_content
+            result["extracted_content"] = content
+            if file_ext == ".pdf" and content == "":
+                md_read = pymupdf4llm.LlamaMarkdownReader()
+                data = md_read.load_data(file_path)
+                result["extracted_content"] = data
+        elif file_ext in [".xlsx", ".xls"]:
+            df = pandas.read_excel(file_path)
+            result["extracted_content"] = df.to_csv()
         else:
             raise HTTPException(status_code=500, detail=f"Error type: [{file_ext}]")
 

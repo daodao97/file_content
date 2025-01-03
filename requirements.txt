@@ -2,3 +2,6 @@ markitdown
 fastapi
 uvicorn
 python-multipart
+pymupdf4llm
+llama_index
+pandas
