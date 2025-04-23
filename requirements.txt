@@ -1,8 +1,8 @@
-markitdown
-fastapi
-uvicorn
-python-multipart
-pymupdf4llm
-llama_index
-pandas
-xlrd
+markitdown[all]==0.1.1
+fastapi==0.115.12
+uvicorn==0.34.2
+python-multipart==0.0.20
+pymupdf4llm==0.0.21
+llama_index==0.12.32
+pandas==2.2.3
+xlrd==2.0.1
